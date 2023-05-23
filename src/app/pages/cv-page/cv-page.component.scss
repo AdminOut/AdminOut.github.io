@@ -1,0 +1,11 @@
+@import "../../../scss/variables";
+
+.work-history {
+  .card {
+    height: 100%;
+  }
+}
+
+.card.light {
+  background-color: $light;
+}
