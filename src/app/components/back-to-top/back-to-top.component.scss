@@ -1,0 +1,12 @@
+@import "../../../scss/fontawesome/scss/solid";
+@import "../../../scss/fontawesome/scss/regular";
+@import "../../../scss/fontawesome/scss/icons";
+/*Floating Back-To-Top Button*/
+    #back-to-top {
+        position: fixed;
+        bottom: 10px;
+        float: right;
+        right: 2%;
+        left: 94%;
+        color: #2b2b2b;
+    }
