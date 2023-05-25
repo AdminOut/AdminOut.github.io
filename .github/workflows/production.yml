@@ -1,0 +1,24 @@
+name: production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  production-ci:
+    environment: production
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: Test
+        uses: ./.github/actions/test
+
+      - id: Deploy
+        uses: ./.github/actions/deploy
+        with:
+          cf-token: ${{ secrets.CF_API_TOKEN }}
+          deploy-environment: "production"
+
