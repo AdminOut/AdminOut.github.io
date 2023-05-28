@@ -1,4 +1,14 @@
 <script setup lang="ts">
+useHead({
+  title: "Resume: Lance",
+  meta: [
+    {
+      name: "description",
+      content: "Senior software engineer resume",
+    },
+  ],
+});
+
 definePageMeta({
   layout: "resume",
 });

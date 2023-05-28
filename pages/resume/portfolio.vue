@@ -1,4 +1,14 @@
 <script setup lang="ts">
+useHead({
+  title: "Portfolio",
+  meta: [
+    {
+      name: "description",
+      content: "Adminout software portfolio.",
+    },
+  ],
+});
+
 definePageMeta({
   layout: "resume",
 });
