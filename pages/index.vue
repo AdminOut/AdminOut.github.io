@@ -1,4 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: "Custom software development",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Custom software development house and payment solution specialist.",
+    },
+  ],
+});
+</script>
 
 <template>
   <NuxtLayout>
