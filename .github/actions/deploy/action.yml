@@ -1,0 +1,37 @@
+name: 'deploy'
+description: 'Deploys the code to cloudflare workers'
+inputs:
+  cf-token:
+    description: 'Cloudflare token'
+    required: true
+  deploy-environment:
+    desctiption: 'Deployment environment'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - id: Setup
+        uses: ./.github/actions/setup
+
+      - name: Copy robots.txt
+        run: cp robots.${{ inputs.deploy-environment }}.txt ./public/robots.txt
+        shell: bash
+
+      - name: Build
+        run: npm run build
+        shell: bash
+        env:
+          NITRO_PRESET: cloudflare-module
+
+      - name: Publish to Cloudflare
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ inputs.cf-token }}
+          wranglerVersion: "3.0.1"
+          command: deploy --env ${{ inputs.deploy-environment }}

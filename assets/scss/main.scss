@@ -1,0 +1,48 @@
+@import "variables";
+@import "@fontsource-variable/inter/standard.css";
+@import "bulma/bulma";
+
+
+@font-face {
+  font-family: "Ming";
+  src: url("assets/font/ming.woff2") format("woff2"),
+    url("assets/font/ming.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.logo-font {
+  font-family: "Ming", sans-serif;
+  span {
+    color: $primary;
+  }
+}
+
+p.body2 {
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 22px;
+}
+
+p.body1 {
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 28px;
+}
+
+.section {
+  padding: 3rem 1.5rem;
+}
+
+section {
+  &.light {
+    background-color: $light;
+  }
+  &.dark {
+    background-color: $grey-dark;
+    color: $grey-lightest;
+    .title {
+      color: $grey-lightest;
+    }
+  }
+}

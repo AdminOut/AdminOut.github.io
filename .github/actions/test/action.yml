@@ -1,0 +1,11 @@
+name: 'Test'
+description: 'Runs code quality and unit tests'
+runs:
+  using: "composite"
+  steps:
+      - id: Setup
+        uses: ./.github/actions/setup
+
+      - name: Lint
+        run: npm run lint
+        shell: bash
