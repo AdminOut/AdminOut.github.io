@@ -1,5 +1,8 @@
 <script setup>
 useHead({
+  htmlAttrs: {
+    lang: "en",
+  },
   titleTemplate: (titleChunk) => {
     return titleChunk
       ? `${titleChunk} | Adminout`
