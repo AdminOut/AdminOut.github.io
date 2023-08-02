@@ -263,28 +263,10 @@ definePageMeta({
                   </p>
                   <ul>
                     <li>
-                      Responsible for the planning, implementation, deployment,
-                      and maintenance of a host of custom software solutions for
-                      our clients
+                      Designed and implemented a gift voucher redemption proxy
+                      server and UI for terminals
                     </li>
-                    <li>
-                      Designed and implemented agile workflows and standard
-                      operating procedures focussed on increasing development
-                      velocity and improving estimation.
-                    </li>
-                    <li>
-                      Introduced and enforced code quality standards and
-                      practices that contributed to a significant decrease in
-                      end-user downtime
-                    </li>
-                    <li>
-                      Introduced automated CI/CD pipelines to facilitate rapid
-                      daily releases
-                    </li>
-                    <li>
-                      Introduced and implemented hiring processes that resulted
-                      in a significant reduction in developer churn.
-                    </li>
+                    <li>Configured linux and apache web servers.</li>
                   </ul>
                 </div>
               </div>
