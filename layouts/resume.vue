@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import BackToTop from "~/components/BackToTop.vue";
+import { profile } from "~/data/resume";
+import { yearsSince } from "~/utils/period";
 
 const route = useRoute();
+const now = useNow();
+
+const years = yearsSince(profile.softwareSince, now);
+const bio = profile.bio.map((p) => p.replace("{years}", String(years)));
 
 const isRouteActive = (path: string) => {
   return route.path === path;
@@ -13,30 +19,33 @@ const isRouteActive = (path: string) => {
   <div>
     <BackToTop />
 
-    <section class="hero hero-main light">
+    <section class="hero hero-main light resume-hero">
       <!-- HERO BODY -->
       <div class="hero-body">
         <div class="container">
           <div class="columns is-vcentered">
             <div class="column is-two-thirds">
-              <p class="title has-text-grey-darker is-size-1">Lance Moore</p>
+              <h1 class="title has-text-grey-darker is-size-1">
+                {{ profile.name }}
+              </h1>
               <p class="subtitle has-text-grey-dark is-size-3">
-                Senior software engineer and consultant
+                {{ profile.headline }}
               </p>
-              <p>
-                Passionate software engineer with a diverse background in both
-                pharmacy and software engineering, combining over 10 years of
-                industry experience in each field. I've leveraged my unique
-                skill set to deliver a fresh approach to developing innovative
-                software solutions.
+              <p class="contact">
+                <a :href="`mailto:${profile.email}`">{{ profile.email }}</a>
+                <span class="separator" aria-hidden="true">·</span>
+                <span>{{ profile.location }}</span>
+              </p>
+              <p v-for="paragraph in bio" :key="paragraph" class="bio">
+                {{ paragraph }}
               </p>
             </div>
-            <div class="column">
+            <div class="column photo">
               <img
                 src="~assets/img/lance_full.webp"
                 height="500"
                 width="235"
-                alt="Lance"
+                alt="Lance Moore"
               />
             </div>
           </div>
@@ -44,7 +53,7 @@ const isRouteActive = (path: string) => {
       </div>
 
       <!-- HERO FOOTER -->
-      <div class="hero-foot">
+      <div class="hero-foot no-print">
         <nav class="tabs is-boxed is-fullwidth">
           <div class="container">
             <ul>
@@ -53,6 +62,9 @@ const isRouteActive = (path: string) => {
               </li>
               <li :class="{ 'is-active': isRouteActive('/resume/portfolio') }">
                 <NuxtLink to="/resume/portfolio">Portfolio</NuxtLink>
+              </li>
+              <li :class="{ 'is-active': isRouteActive('/resume/print') }">
+                <NuxtLink to="/resume/print">Printable PDF</NuxtLink>
               </li>
             </ul>
           </div>
@@ -63,4 +75,26 @@ const isRouteActive = (path: string) => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+@import "@/assets/scss/variables";
+
+.contact {
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+
+  .separator {
+    margin: 0 0.5rem;
+    color: #8a8a8a;
+  }
+}
+
+.bio {
+  max-width: 46rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.photo {
+  text-align: center;
+}
+</style>
