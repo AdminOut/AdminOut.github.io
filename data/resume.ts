@@ -147,7 +147,7 @@ export const roles: Role[] = [
     ],
   },
   {
-    organisation: "Flow Connect",
+    organisation: "FlowConnect",
     title: "Co-founder",
     start: "2023-09",
     logo: flowconnectLogo,
@@ -309,8 +309,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: "Flow Connect integration platform",
-    client: "Flow Connect, co-founded; clients across the UK",
+    title: "FlowConnect integration platform",
+    client: "FlowConnect, co-founded; clients across the UK",
     role: "Co-founder and lead architect",
     summary:
       "An integration platform that keeps clients' CRM, e-commerce, ERP, recruiting and phone systems in step automatically, with alerts when something breaks.",
