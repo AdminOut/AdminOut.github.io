@@ -20,6 +20,7 @@ import wlastBatch from "~/assets/img/portfolio/wlast-batch.webp";
 import wlastStock from "~/assets/img/portfolio/wlast-stock.webp";
 import flowconnectArt from "~/assets/img/portfolio/flowconnect.webp";
 import contactCentreArt from "~/assets/img/portfolio/contact-centre.webp";
+import cryptoRolloutArt from "~/assets/img/portfolio/crypto-rollout.webp";
 
 export interface Role {
   organisation: string;
@@ -413,6 +414,10 @@ export const projects: Project[] = [
       "Supported the project's stakeholders throughout",
     ],
     stack: [],
+    illustration: {
+      src: cryptoRolloutArt,
+      alt: "Illustration of a phone wallet linked to a nationwide network, with a support toolkit",
+    },
   },
 ];
 
