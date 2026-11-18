@@ -63,8 +63,10 @@ const isRouteActive = (path: string) => {
               <li :class="{ 'is-active': isRouteActive('/resume/portfolio') }">
                 <NuxtLink to="/resume/portfolio">Portfolio</NuxtLink>
               </li>
-              <li :class="{ 'is-active': isRouteActive('/resume/print') }">
-                <NuxtLink to="/resume/print">Printable PDF</NuxtLink>
+              <li>
+                <a href="/Lance-Moore-CV.pdf" download="Lance-Moore-CV.pdf">
+                  Download CV (PDF)
+                </a>
               </li>
             </ul>
           </div>
