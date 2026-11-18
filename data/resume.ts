@@ -16,6 +16,8 @@ import inspectionShot from "~/assets/img/portfolio/virtual-inspection.webp";
 import wlastDashboard from "~/assets/img/portfolio/wlast-dashboard.webp";
 import wlastBatch from "~/assets/img/portfolio/wlast-batch.webp";
 import wlastStock from "~/assets/img/portfolio/wlast-stock.webp";
+import flowconnectArt from "~/assets/img/portfolio/flowconnect.webp";
+import contactCentreArt from "~/assets/img/portfolio/contact-centre.webp";
 
 export interface Role {
   organisation: string;
@@ -327,6 +329,10 @@ export const projects: Project[] = [
       "Next.js",
       "Cloudflare",
     ],
+    illustration: {
+      src: flowconnectArt,
+      alt: "Illustration of a hub keeping connected business systems in sync",
+    },
   },
   {
     title: "Omnichannel messaging console",
@@ -382,6 +388,10 @@ export const projects: Project[] = [
       "SMS conversations logged to the HubSpot timeline",
     ],
     stack: ["JavaScript", "HubSpot Calling Extensions SDK", "Ruby"],
+    illustration: {
+      src: contactCentreArt,
+      alt: "Illustration of calls and messages flowing into a CRM timeline",
+    },
   },
 ];
 
