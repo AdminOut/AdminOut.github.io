@@ -48,11 +48,7 @@ section {
   }
 }
 
-// PRINT (resume pages: /resume/print saves as a single PDF)
-
-.print-page-break {
-  display: none;
-}
+// PRINT (resume pages printed from the browser)
 
 @page {
   size: A4;
@@ -69,11 +65,6 @@ section {
   .no-print,
   #back-to-top {
     display: none !important;
-  }
-
-  .print-page-break {
-    display: block;
-    break-before: page;
   }
 
   .section,

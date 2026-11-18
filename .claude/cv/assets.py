@@ -3,13 +3,16 @@
 Usage: python -I assets.py <repo> <build-dir>   (needs pillow and segno)
 
 Writes <build-dir>/img/: the round headshot, company logos as PNG, the
-portfolio images as JPEG crops sized for the cards, and the portfolio QR code.
+portfolio images as JPEG crops sized for the cards, the portfolio QR code,
+and the email address as an image for the public copy.
 """
+import base64
+import re
 import sys
 from pathlib import Path
 
 import segno
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 repo, build = Path(sys.argv[1]), Path(sys.argv[2])
 img, out = repo / "assets/img", build / "img"
@@ -49,6 +52,21 @@ for f in sorted((img / "portfolio").glob("*.webp")):
         y = (540 - h) // 2 if f.stem in ILLUSTRATIONS else 0
         base.crop((0, y, 960, y + h)).save(
             out / f"{f.stem}-{tag}.jpg", quality=84, optimize=True, progressive=True)
+
+# The email address as an image, for the public copy. Drawn in Inter Medium at
+# 8pt and 720 dpi on a transparent line box of the sidebar's line height (1.45),
+# with the baseline where the text's own would sit, so it lines up as text does.
+encoded = re.search(r'emailEncoded: "([^"]+)"', (repo / "data/resume.ts").read_text()).group(1)
+email = base64.b64decode(encoded).decode()[::-1]
+em = 80
+font = ImageFont.truetype(str(Path(__file__).parent / "fonts/Inter-Medium.ttf"), em)
+ascent, descent = font.getmetrics()
+line = round(1.45 * em)
+baseline = (line - (ascent + descent)) / 2 + ascent
+width = round(font.getlength(email)) + 2
+canvas = Image.new("RGBA", (width, line), (0, 0, 0, 0))
+ImageDraw.Draw(canvas).text((0, baseline), email, font=font, fill=(255, 255, 255, 255), anchor="ls")
+canvas.save(out / "email.png")
 
 segno.make("https://adminout.net/resume/portfolio", error="m").save(
     out / "qr-portfolio.svg", scale=4, border=0, dark="#172A2E", light=None)

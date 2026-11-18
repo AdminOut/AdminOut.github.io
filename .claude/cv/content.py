@@ -1,15 +1,33 @@
-"""The emailable CV: content and design, written out as HTML for WeasyPrint.
+"""The CV: content and design, written out as HTML for WeasyPrint.
 
-Run through build.sh, which prepares the images and renders the PDF. The HTML
-refers to img/ and fonts/ relative to the build directory it is written to.
+Usage: python3 content.py out.html [--public]
+
+Run through build.sh, which prepares the images and renders both copies. The
+HTML refers to img/ and fonts/ relative to the build directory it is written to.
+
+The email address is read from data/resume.ts, where it is stored encoded. The
+private copy (for attaching to emails) carries it as a mailto link; the public
+copy served by the site shows it as an image only, so it cannot be scraped.
 
 The content is the short form of data/resume.ts. When a role, project or
 figure changes there, change it here too. Durations and the years of
 experience are calculated from today's date, as the site calculates them.
 """
+import base64
 import datetime
+import re
 import sys
 from pathlib import Path
+
+PUBLIC = "--public" in sys.argv[2:]
+_resume = (Path(__file__).resolve().parents[2] / "data/resume.ts").read_text()
+_encoded = re.search(r'emailEncoded: "([^"]+)"', _resume).group(1)
+EMAIL = base64.b64decode(_encoded).decode()[::-1]
+EMAIL_HTML = (
+    '<img class="email" src="img/email.png" alt="Email address">'
+    if PUBLIC
+    else f'<a href="mailto:{EMAIL}">{EMAIL}</a>'
+)
 
 TODAY = datetime.date.today()
 NOW = (TODAY.year, TODAY.month)
@@ -227,6 +245,7 @@ a { color: inherit; text-decoration: none; }
 .contact .k { font-size: 6.4pt; text-transform: uppercase; letter-spacing: .9pt;
               color: #8FAAAD; margin-top: 2.2mm; }
 .contact .v { font-size: 8pt; color: #FFFFFF; font-weight: 500; }
+.contact img.email { display: block; height: 11.6pt; }
 .side h4 { font-size: 7.4pt; font-weight: 600; color: #FFFFFF; margin: 2.8mm 0 1.4mm; }
 .chips { line-height: 1; }
 .chip { display: inline-block; font-size: 6.6pt; color: #E6F1F0; border: .5pt solid #3C6367;
@@ -345,7 +364,7 @@ page1 = f"""
     <img class="photo" src="img/headshot.png" alt="Lance Moore">
     <h3 class="first">Contact</h3>
     <div class="contact">
-      <div class="k">Email</div><div class="v"><a href="mailto:lance@adminout.net">lance@adminout.net</a></div>
+      <div class="k">Email</div><div class="v">{EMAIL_HTML}</div>
       <div class="k">Location</div><div class="v">Johannesburg, South Africa</div>
       <div class="k">Works with</div><div class="v">UK and US teams, remotely</div>
       <div class="k">Portfolio</div><div class="v"><a href="https://adminout.net/resume/portfolio">adminout.net/resume/portfolio</a></div>
