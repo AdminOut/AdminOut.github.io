@@ -20,6 +20,7 @@ import wlastBatch from "~/assets/img/portfolio/wlast-batch.webp";
 import wlastStock from "~/assets/img/portfolio/wlast-stock.webp";
 import flowconnectArt from "~/assets/img/portfolio/flowconnect.webp";
 import contactCentreArt from "~/assets/img/portfolio/contact-centre.webp";
+import cryptoRolloutArt from "~/assets/img/portfolio/crypto-rollout.webp";
 
 export interface Role {
   organisation: string;
@@ -401,6 +402,23 @@ export const projects: Project[] = [
       alt: "Illustration of calls and messages flowing into a CRM timeline",
     },
   },
+  {
+    title: "National cryptocurrency rollout",
+    client: "A national rollout of cryptocurrency as legal tender",
+    role: "Contractor team lead",
+    summary:
+      "Brought in to resolve severe issues that surfaced during the rollout, leading a team of contractors and supporting the project's stakeholders.",
+    features: [
+      "Assembled and led a team of contractors",
+      "Worked through the severe issues raised during the rollout",
+      "Supported the project's stakeholders throughout",
+    ],
+    stack: [],
+    illustration: {
+      src: cryptoRolloutArt,
+      alt: "Illustration of a phone wallet linked to a nationwide network, with a support toolkit",
+    },
+  },
 ];
 
 export const earlierProjects: BriefProject[] = [
@@ -412,10 +430,6 @@ export const earlierProjects: BriefProject[] = [
   {
     title: "Electronic procurement and ERP",
     line: "Ordering, commission calculations and payment collection for a pharmaceutical supplier, with logins for clinics, practitioners and sales staff.",
-  },
-  {
-    title: "National cryptocurrency rollout",
-    line: "Assembled and led a contractor team to resolve severe issues during a national rollout of crypto as legal tender.",
   },
   {
     title: "Crypto arbitrage feed",

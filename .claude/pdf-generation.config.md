@@ -1,6 +1,6 @@
 # PDF generation config
 
-Read by the pdf-generation skill's `build_doc.py`. The CV is a flat document built from `.claude/pdf-generation.flat-template.cv.html` and gated with `--client default --check-only`.
+Read by the pdf-generation skill's `build_doc.py`. The CV is built by `.claude/cv/build.sh`, which gates the rendered PDF with `--client default --check-only`.
 
 - **Provider name:** Lance Moore
 - **Provider wordmark:** Lance Moore
