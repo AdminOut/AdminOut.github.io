@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>{{DOC_TITLE}}</title>
+<meta name="author" content="{{NAME}}">
+<meta name="description" content="{{DOC_DESCRIPTION}}">
+<meta name="keywords" content="{{DOC_KEYWORDS}}">
+<!-- ============================================================================
+  Lance Moore CV: FLAT TEMPLATE (copied from the pdf-generation skill's
+  flat-template.html, house style kept, skeleton adapted for a CV)
+
+  Fill a scratch copy by hand, never commit the filled copy:
+
+      cp .claude/pdf-generation.flat-template.cv.html /tmp/cv.html
+      # replace every double-brace token and write the body
+      grep -o '{{[A-Z_]*}}' /tmp/cv.html           # MUST print nothing
+      uvx --from weasyprint weasyprint /tmp/cv.html out.pdf
+      python3 ~/.claude/skills/pdf-generation/assets/build_doc.py --client default --check-only out.pdf
+
+  The content is the site's resume data (data/resume.ts), condensed to two
+  A4 pages. Keep the two in step: the site is the long form, this is the
+  emailable short form.
+
+  CV conventions this skeleton follows: name, headline and contact details at
+  the top; no photo; real selectable text in one reading column (so applicant
+  tracking systems parse it); reverse-chronological roles with dates on every
+  line; two pages.
+
+  ---------------------------------------------------------------------------
+  PALETTE: the only block to change when re-branding.
+
+    ink        #172A2E  headings, body text, table header fill (dark slate teal)
+    ink-mid    #0A4C4A  band gradient mid-stop (never behind text)
+    accent     #0C7471  $primary in assets/scss/variables.scss (the site brand)
+    subtext    #55666A  secondary text, dates, footer
+    border     #E1E8E8  hairlines
+    surface    #F4F7F7  neutral fill (KPI cells)
+    tint       #E6F1F0  accent tint: lead paragraph
+    band-tint  #BFE0DD  secondary text ON the dark band
+    cat-1/2/3  #0C7471 / #3FA9A0 / #D08C3F   the rule under the band:
+               engineering, integrations, regulated industry (the pharmacy
+               years). Fills only.
+
+  CONTRAST GATE, against white, text needs 4.5:1:
+
+    #0C7471 = 5.60 PASS  -> the brand hue may sit behind text as-is
+    #3FA9A0 = 2.84 FAIL  -> fill only
+    #D08C3F = 2.80 FAIL  -> fill only
+    Passing: #172A2E 14.92 · #0A4C4A 9.79 · #55666A 6.01
+    On the band: #BFE0DD on #172A2E = 10.6 · white on #0C7471 = 5.6
+    #0C7471 on the #E6F1F0 tint = 4.85 PASS
+
+  Type is DejaVu Sans: fonts must exist on any build host.
+  ---------------------------------------------------------------------------
+============================================================================= -->
+<style>
+  @page {
+    size: A4; margin: 13mm 14mm 15mm;
+    @bottom-left { content: "{{NAME}} · {{FOOTER_TITLE}} · {{DATE_SHORT}}"; font-family: "DejaVu Sans", sans-serif; font-size: 7pt; color: #55666A; }
+    @bottom-right { content: "Page " counter(page) " of " counter(pages); font-family: "DejaVu Sans", sans-serif; font-size: 7pt; color: #55666A; }
+  }
+  * { box-sizing: border-box; }
+  body { font-family: "DejaVu Sans", sans-serif; font-size: 8.6pt; color: #172A2E; line-height: 1.45; margin: 0; }
+  a { color: #0C7471; text-decoration: none; }
+
+  /* ---------- header band ---------- */
+  .band { background: linear-gradient(120deg,#172A2E 0%,#0A4C4A 60%,#0C7471 140%); color: #fff; border-radius: 3mm 3mm 0 0; padding: 8mm 10mm 7mm; }
+  .band .head { display: flex; justify-content: space-between; align-items: flex-end; }
+  .band h1 { font-size: 22pt; font-weight: bold; margin: 0 0 1.5mm; line-height: 1.1; letter-spacing: .3px; }
+  .band .sub { font-size: 10.5pt; color: #E6F1F0; }
+  .band .rf { text-align: right; font-size: 8pt; color: #BFE0DD; line-height: 1.7; }
+  .band .rf a { color: #fff; font-weight: bold; }
+  .catrule { height: 1.6mm; border-radius: 0 0 1mm 1mm; margin: 0 0 5mm; background: linear-gradient(to right, #0C7471 0%, #0C7471 33.33%, #3FA9A0 33.33%, #3FA9A0 66.66%, #D08C3F 66.66%, #D08C3F 100%); }
+
+  /* ---------- headline figures ---------- */
+  table.kpi { width: 100%; border-collapse: separate; border-spacing: 2.5mm 0; margin: 0 -2.5mm 4.5mm; table-layout: fixed; }
+  table.kpi td { background: #F4F7F7; border-top: 1.4pt solid #0C7471; border-radius: 0 0 1.5mm 1.5mm; padding: 2.6mm 3mm 2.4mm; vertical-align: top; }
+  table.kpi .n { font-size: 14pt; font-weight: bold; color: #172A2E; line-height: 1.1; }
+  table.kpi .l { font-size: 6.8pt; color: #55666A; text-transform: uppercase; letter-spacing: .5px; margin-top: 1.2mm; line-height: 1.35; }
+
+  p.lead { background: #E6F1F0; border-left: 3pt solid #0C7471; padding: 3mm 4.5mm; border-radius: 0 2mm 2mm 0; font-size: 8.9pt; margin: 0 0 3mm; }
+
+  h2.sect { font-size: 11pt; color: #172A2E; border-bottom: 1.2pt solid #0C7471; padding-bottom: 1.2mm; margin: 5mm 0 2.8mm; font-weight: bold; text-transform: uppercase; letter-spacing: .8px; break-after: avoid; }
+
+  /* ---------- skills table ---------- */
+  table.overview { width: 100%; border-collapse: collapse; font-size: 8.2pt; }
+  table.overview td { border-bottom: .4pt solid #E1E8E8; padding: 1.5mm 2.4mm; vertical-align: top; }
+  table.overview td.k { width: 34mm; font-weight: bold; color: #0C7471; padding-left: 0; }
+
+  /* ---------- roles ---------- */
+  .role { margin: 0 0 3.6mm; break-inside: avoid; }
+  .role .rh { display: flex; justify-content: space-between; align-items: baseline; }
+  .role h3 { font-size: 9.6pt; margin: 0; color: #172A2E; }
+  .role h3 .org { color: #0C7471; }
+  .role .when { font-size: 8pt; color: #55666A; white-space: nowrap; padding-left: 4mm; }
+  .role .ctx { font-size: 8.1pt; color: #55666A; font-style: italic; margin: .6mm 0 1mm; }
+  ul { margin: .8mm 0 0; padding-left: 4.8mm; }
+  li { margin-bottom: .9mm; }
+
+  /* ---------- compact lists (projects, earlier career) ---------- */
+  ul.defs { list-style: none; padding-left: 0; margin: 0; }
+  ul.defs li { padding-left: 4.5mm; position: relative; margin-bottom: 1.6mm; break-inside: avoid; }
+  ul.defs li:before { content: "\203A"; position: absolute; left: 0; color: #0C7471; font-weight: bold; }
+  .muted { color: #55666A; }
+  .note { background: #F4F7F7; border-left: 3pt solid #55666A; border-radius: 0 2mm 2mm 0; padding: 2.4mm 4mm; margin: 2.5mm 0 0; font-size: 8.2pt; break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<div class="band">
+  <div class="head">
+    <div>
+      <h1>{{NAME}}</h1>
+      <div class="sub">{{HEADLINE}}</div>
+    </div>
+    <div class="rf">{{CONTACT}}</div>
+  </div>
+</div>
+<div class="catrule"></div>
+
+<table class="kpi"><tr>{{KPIS}}</tr></table>
+
+<p class="lead">{{SUMMARY}}</p>
+
+<!-- ================= CONTENT =================
+  Authoring area. Classes available, and no others:
+    h2.sect · div.role (div.rh > h3 [span.org] + span.when, p.ctx, ul)
+    table.overview (td.k for the label column) · ul.defs · p.muted · div.note
+-->
+{{BODY}}
+
+</body>
+</html>
