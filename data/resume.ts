@@ -9,6 +9,8 @@
 import adminoutLogo from "~/assets/img/logo-mini.webp";
 import accruviaLogo from "~/assets/img/resume/accruvia.jpg";
 import g2gLogo from "~/assets/img/resume/g2g.webp";
+import flowconnectLogo from "~/assets/img/resume/flowconnect.webp";
+import pfpLogo from "~/assets/img/resume/purpose-factory-partners.webp";
 import wlastLogo from "~/assets/img/resume/wlast.webp";
 import opsPlatformShot from "~/assets/img/portfolio/ops-platform.webp";
 import messagingShot from "~/assets/img/portfolio/messaging-console.webp";
@@ -132,7 +134,7 @@ export const roles: Role[] = [
     organisation: "Purpose Factory Partners",
     title: "Lead Software Engineer",
     start: "2026-06",
-    initials: "PF",
+    logo: pfpLogo,
     summary:
       "A US leadership-coaching and business-advisory group, building an AI and data platform for its member companies.",
     highlights: [
@@ -148,7 +150,7 @@ export const roles: Role[] = [
     organisation: "Flow Connect",
     title: "Co-founder",
     start: "2023-09",
-    initials: "FC",
+    logo: flowconnectLogo,
     summary:
       "An integration platform (iPaaS) that keeps a company's CRM, e-commerce, ERP, recruiting and phone systems in step. Spun out of Six & Flow, a UK HubSpot agency, where I am Development Lead.",
     highlights: [
