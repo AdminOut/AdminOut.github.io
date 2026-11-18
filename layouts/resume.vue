@@ -32,7 +32,7 @@ const isRouteActive = (path: string) => {
                 {{ profile.headline }}
               </p>
               <p class="contact">
-                <a :href="`mailto:${profile.email}`">{{ profile.email }}</a>
+                <ResumeProtectedEmail :encoded="profile.emailEncoded" />
                 <span class="separator" aria-hidden="true">·</span>
                 <span>{{ profile.location }}</span>
               </p>

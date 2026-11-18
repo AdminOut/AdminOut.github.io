@@ -76,7 +76,13 @@ export const profile = {
   name: "Lance Moore",
   headline: "Senior software engineer and integration specialist",
   softwareSince: "2015-02",
-  email: "lance@adminout.net",
+  /**
+   * The contact email, reversed then base64-encoded so it never appears as
+   * plain text in the HTML or the JavaScript bundle. Decoded in the browser
+   * only when a visitor asks for it (components/resume/ProtectedEmail.vue).
+   * To change it: btoa([...address].reverse().join("")).
+   */
+  emailEncoded: "dGVuLnR1b25pbWRhQGVjbmFs",
   location: "Johannesburg, South Africa · remote with UK and US teams",
   /** `{years}` is replaced with completed years since `softwareSince`. */
   bio: [
